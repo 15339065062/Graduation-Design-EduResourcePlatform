@@ -109,7 +109,7 @@ router.beforeEach((to, from, next) => {
     }
     
     if (to.meta.requiresTeacher && store.getters.userRole !== 'teacher' && store.getters.userRole !== 'admin') {
-      next('/resources')
+      next({ path: '/user-center', query: { tab: 'role-change' } })
       return
     }
     

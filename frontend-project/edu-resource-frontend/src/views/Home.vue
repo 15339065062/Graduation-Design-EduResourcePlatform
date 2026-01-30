@@ -12,6 +12,9 @@
             <router-link v-if="canUpload" to="/upload" class="btn btn-secondary btn-lg">
               <i class="icon-upload"></i> 上传资源
             </router-link>
+            <router-link v-else-if="isLoggedIn" to="/user-center?tab=role-change" class="btn btn-outline btn-lg">
+              <i class="icon-upload"></i> 申请上传权限
+            </router-link>
             <router-link v-else to="/register" class="btn btn-secondary btn-lg">
               <i class="icon-user-plus"></i> 立即加入
             </router-link>
@@ -139,6 +142,7 @@ export default {
     })
     
     const canUpload = computed(() => store.getters.canUpload)
+    const isLoggedIn = computed(() => store.getters.isLoggedIn)
     
     const defaultAvatar = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'
     
@@ -220,6 +224,7 @@ export default {
       featuredResources,
       stats,
       canUpload,
+      isLoggedIn,
       defaultAvatar,
       handleViewResource,
       getResourceIcon,

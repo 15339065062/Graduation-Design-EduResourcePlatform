@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { resourceApi } from '../api/resource-api'
@@ -169,14 +169,35 @@ export default {
     const success = ref('')
     const fileInput = ref(null)
     
-    const categories = [
-      { id: 1, name: '数学' },
-      { id: 2, name: '科学' },
-      { id: 3, name: '语言' },
-      { id: 4, name: '历史' },
-      { id: 5, name: '技术' },
-      { id: 6, name: '艺术' }
+    const defaultCategoryNames = [
+      '语文', '数学', '英语', '物理', '化学', '生物', '地理', '历史', '政治',
+      '信息技术', '编程入门', '数据结构与算法', '软件工程', '操作系统', '计算机网络', '数据库',
+      '前端开发', '后端开发', '移动开发', '人工智能(AI)', '机器学习', '深度学习', '数据科学', '大数据',
+      '网络安全', '云计算', 'DevOps', '物联网(IoT)', '机器人',
+      '产品设计', 'UI/UX 设计', '数字媒体', 'AIGC', '区块链', 'AR/VR/XR', '量子计算',
+      '经济学', '管理学', '心理学', '教育学', '医学基础', '法律基础',
+      '考研', '公考', '职业技能', '竞赛/科研'
     ]
+
+    const toOptions = (names) => {
+      const cleaned = (names || [])
+        .map(v => (v == null ? '' : String(v)).trim())
+        .filter(Boolean)
+      const unique = Array.from(new Set(cleaned))
+      return unique.map((name, index) => ({ id: index + 1, name }))
+    }
+
+    const categories = ref(toOptions(defaultCategoryNames))
+
+    onMounted(async () => {
+      try {
+        const res = await resourceApi.getCategories()
+        if (res && res.success && Array.isArray(res.data) && res.data.length) {
+          categories.value = toOptions([...defaultCategoryNames, ...res.data])
+        }
+      } catch (e) {
+      }
+    })
     
     const isFormValid = computed(() => {
       return formData.name.trim() &&

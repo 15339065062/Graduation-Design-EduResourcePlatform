@@ -6,6 +6,9 @@
         <router-link v-if="canUpload" to="/upload" class="btn btn-primary btn-cta">
           <i class="icon-upload"></i> 上传资源
         </router-link>
+        <router-link v-else-if="isLoggedIn" to="/user-center?tab=role-change" class="btn btn-outline">
+          <i class="icon-upload"></i> 申请上传权限
+        </router-link>
       </div>
       
       <div class="filters-section">
@@ -160,6 +163,7 @@ export default {
     let searchTimer = null
     
     const canUpload = computed(() => store.getters.canUpload)
+    const isLoggedIn = computed(() => store.getters.isLoggedIn)
     
     const defaultAvatar = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E'
     
@@ -278,9 +282,21 @@ export default {
     }, { immediate: true })
     
     onMounted(() => {
+      const defaultCategories = [
+        '语文', '数学', '英语', '物理', '化学', '生物', '地理', '历史', '政治',
+        '信息技术', '编程入门', '数据结构与算法', '软件工程', '操作系统', '计算机网络', '数据库',
+        '前端开发', '后端开发', '移动开发', '人工智能(AI)', '机器学习', '深度学习', '数据科学', '大数据',
+        '网络安全', '云计算', 'DevOps', '物联网(IoT)', '机器人',
+        '产品设计', 'UI/UX 设计', '数字媒体', 'AIGC', '区块链', 'AR/VR/XR', '量子计算',
+        '经济学', '管理学', '心理学', '教育学', '医学基础', '法律基础',
+        '考研', '公考', '职业技能', '竞赛/科研'
+      ]
+
       resourceApi.getCategories().then((res) => {
         if (res && res.success) {
-          categories.value = res.data || []
+          const list = Array.isArray(res.data) ? res.data : []
+          const merged = Array.from(new Set([...defaultCategories, ...list].map(v => (v == null ? '' : String(v)).trim()).filter(Boolean)))
+          categories.value = merged
         }
       }).catch(() => {})
     })
@@ -295,10 +311,12 @@ export default {
       categories,
       canUpload,
       defaultAvatar,
+      isLoggedIn,
       handleSearch,
       handleSearchImmediate,
       handleFilterChange,
       handlePageChange,
+      handleViewResource,
       handleViewResource,
       getResourceIcon,
       formatFileSize,

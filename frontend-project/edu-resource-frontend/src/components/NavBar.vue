@@ -17,6 +17,7 @@
           <router-link to="/friends" class="nav-item">好友</router-link>
           <router-link v-if="isAdmin" to="/admin" class="nav-item">用户管理</router-link>
           <router-link v-if="canUpload" to="/upload" class="nav-item">上传</router-link>
+          <a v-else href="#" class="nav-item nav-item-disabled" @click.prevent="goApplyUpload">上传</a>
           <router-link to="/my-resources" class="nav-item">我的资源</router-link>
           <router-link to="/my-collections" class="nav-item">我的收藏</router-link>
           
@@ -73,6 +74,10 @@ export default {
       store.dispatch('logout')
       router.push('/login')
     }
+
+    const goApplyUpload = () => {
+      router.push({ path: '/user-center', query: { tab: 'role-change' } })
+    }
     
     return {
       isLoggedIn,
@@ -82,7 +87,8 @@ export default {
       showDropdown,
       defaultAvatar,
       toggleDropdown,
-      handleLogout
+      handleLogout,
+      goApplyUpload
     }
   }
 }
@@ -153,6 +159,10 @@ export default {
           transform: translateY(-1px);
         }
       }
+    }
+
+    .nav-item-disabled {
+      opacity: 0.78;
     }
     
     .nav-dropdown {

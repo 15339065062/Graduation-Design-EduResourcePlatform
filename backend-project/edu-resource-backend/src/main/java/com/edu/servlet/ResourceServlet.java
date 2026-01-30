@@ -26,7 +26,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -1199,12 +1202,38 @@ public class ResourceServlet extends HttpServlet {
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             
-            List<String> categories = new ArrayList<>();
-            while (rs.next()) {
-                categories.add(rs.getString("category"));
+            List<String> recommended = Arrays.asList(
+                "语文", "数学", "英语", "物理", "化学", "生物", "地理", "历史", "政治",
+                "信息技术", "编程入门", "数据结构与算法", "软件工程", "操作系统", "计算机网络", "数据库",
+                "前端开发", "后端开发", "移动开发", "人工智能(AI)", "机器学习", "深度学习", "数据科学", "大数据",
+                "网络安全", "云计算", "DevOps", "物联网(IoT)", "机器人",
+                "产品设计", "UI/UX 设计", "数字媒体", "AIGC", "区块链", "AR/VR/XR", "量子计算",
+                "经济学", "管理学", "心理学", "教育学", "医学基础", "法律基础",
+                "考研", "公考", "职业技能", "竞赛/科研"
+            );
+
+            LinkedHashSet<String> merged = new LinkedHashSet<>();
+            for (String c : recommended) {
+                if (c != null && !c.trim().isEmpty()) {
+                    merged.add(c.trim());
+                }
             }
-            
-            JsonUtil.sendJsonResponse(resp, ApiResponse.success(categories));
+
+            List<String> extras = new ArrayList<>();
+            while (rs.next()) {
+                String category = rs.getString("category");
+                if (category == null) continue;
+                String normalized = category.trim();
+                if (normalized.isEmpty()) continue;
+                if (!merged.contains(normalized)) {
+                    extras.add(normalized);
+                }
+            }
+
+            Collections.sort(extras);
+            merged.addAll(extras);
+
+            JsonUtil.sendJsonResponse(resp, ApiResponse.success(new ArrayList<>(merged)));
         } catch (SQLException e) {
             e.printStackTrace();
             JsonUtil.sendJsonResponse(resp, ApiResponse.error("Database error"));
