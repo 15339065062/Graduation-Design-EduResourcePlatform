@@ -119,21 +119,21 @@ export default {
 
 <style scoped>
 .resource-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  padding: 18px;
   cursor: pointer;
-  transition: all 0.3s;
-  border: 1px solid #e5e7eb;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  border: 1px solid rgba(15, 23, 42, 0.10);
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
 .resource-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(15, 23, 42, 0.14);
 }
 
 .resource-icon {
@@ -142,8 +142,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.95) 0%, rgba(123, 92, 255, 0.95) 100%);
+  border-radius: 18px;
   color: white;
   font-size: 28px;
 }
@@ -156,7 +156,7 @@ export default {
   margin: 0 0 8px 0;
   font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -165,7 +165,7 @@ export default {
 .resource-description {
   margin: 0 0 12px 0;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-2);
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -183,8 +183,8 @@ export default {
 
 .category-tag {
   padding: 4px 10px;
-  background: #e0e7ff;
-  color: #4338ca;
+  background: rgba(79, 109, 255, 0.12);
+  color: rgba(15, 23, 42, 0.82);
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
@@ -193,14 +193,14 @@ export default {
 .file-size,
 .file-type {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-3);
 }
 
 .resource-stats {
   display: flex;
   gap: 16px;
   padding-top: 12px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .stat-item {
@@ -208,7 +208,7 @@ export default {
   align-items: center;
   gap: 4px;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-2);
 }
 
 .stat-item i {
@@ -220,7 +220,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding-top: 12px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .uploader-info {
@@ -238,7 +238,7 @@ export default {
 
 .uploader-info span {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-2);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -247,6 +247,6 @@ export default {
 
 .upload-date {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-3);
 }
 </style>

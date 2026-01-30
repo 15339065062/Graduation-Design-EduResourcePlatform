@@ -279,16 +279,17 @@ export default {
 <style scoped lang="less">
 .admin-dashboard {
   min-height: 100vh;
-  background: #f0f2f5;
-  padding: 40px 0;
+  background: transparent;
+  padding: 28px 0 56px;
 }
 
 .admin-header {
-  background: white;
-  padding: 20px 30px;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 18px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
   margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-md);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -296,6 +297,8 @@ export default {
   h1 {
     font-size: 24px;
     margin: 0;
+    color: var(--text);
+    letter-spacing: -0.02em;
   }
 
   .admin-nav {
@@ -305,27 +308,31 @@ export default {
     a {
       cursor: pointer;
       padding: 8px 16px;
-      border-radius: 6px;
-      color: #666;
-      font-weight: 500;
+      border-radius: 12px;
+      color: rgba(15, 23, 42, 0.70);
+      font-weight: 600;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
       
       &.active {
-        background: #e6f7ff;
-        color: #1890ff;
+        background: rgba(79, 109, 255, 0.12);
+        color: rgba(15, 23, 42, 0.92);
       }
       
       &:hover {
-        color: #1890ff;
+        background: rgba(15, 23, 42, 0.06);
+        color: rgba(15, 23, 42, 0.92);
+        transform: translateY(-1px);
       }
     }
   }
 }
 
 .content-section {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: rgba(255, 255, 255, 0.82);
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
 
   .section-header {
     display: flex;
@@ -335,13 +342,23 @@ export default {
     h2 {
       font-size: 20px;
       margin: 0;
+      color: var(--text);
     }
     
     input {
       padding: 8px 12px;
-      border: 1px solid #d9d9d9;
-      border-radius: 4px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      border-radius: 12px;
       width: 240px;
+      background: rgba(255, 255, 255, 0.78);
+      transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
+      
+      &:focus {
+        outline: none;
+        border-color: rgba(79, 109, 255, 0.55);
+        box-shadow: var(--focus);
+        background: rgba(255, 255, 255, 0.96);
+      }
     }
   }
 }
@@ -353,49 +370,49 @@ export default {
   th, td {
     padding: 12px 16px;
     text-align: left;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
   }
   
   th {
-    background: #fafafa;
+    background: rgba(15, 23, 42, 0.03);
     font-weight: 600;
-    color: #333;
+    color: rgba(15, 23, 42, 0.86);
   }
   
   .role-badge {
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 12px;
     font-size: 12px;
     
-    &.admin { background: #f5222d; color: white; }
-    &.teacher { background: #1890ff; color: white; }
-    &.student { background: #52c41a; color: white; }
+    &.admin { background: rgba(194, 71, 77, 0.14); color: rgba(15, 23, 42, 0.82); border: 1px solid rgba(194, 71, 77, 0.18); }
+    &.teacher { background: rgba(79, 109, 255, 0.14); color: rgba(15, 23, 42, 0.82); border: 1px solid rgba(79, 109, 255, 0.18); }
+    &.student { background: rgba(59, 155, 122, 0.14); color: rgba(15, 23, 42, 0.82); border: 1px solid rgba(59, 155, 122, 0.18); }
   }
   
   .status-badge {
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 12px;
     font-size: 12px;
     
-    &.active, &.approved { color: #52c41a; background: #f6ffed; border: 1px solid #b7eb8f; }
-    &.disabled, &.rejected { color: #f5222d; background: #fff1f0; border: 1px solid #ffa39e; }
-    &.pending { color: #faad14; background: #fffbe6; border: 1px solid #ffe58f; }
+    &.active, &.approved { color: rgba(15, 23, 42, 0.82); background: rgba(59, 155, 122, 0.14); border: 1px solid rgba(59, 155, 122, 0.20); }
+    &.disabled, &.rejected { color: rgba(15, 23, 42, 0.82); background: rgba(194, 71, 77, 0.14); border: 1px solid rgba(194, 71, 77, 0.20); }
+    &.pending { color: rgba(15, 23, 42, 0.82); background: rgba(184, 138, 59, 0.16); border: 1px solid rgba(184, 138, 59, 0.22); }
   }
   
   .btn-text {
     border: none;
     background: none;
-    color: #1890ff;
+    color: rgba(15, 23, 42, 0.78);
     cursor: pointer;
     margin-right: 8px;
     padding: 0;
     
     &:hover {
-      text-decoration: underline;
+      color: rgba(15, 23, 42, 0.92);
     }
     
-    &.danger { color: #f5222d; }
-    &.success { color: #52c41a; }
+    &.danger { color: rgba(194, 71, 77, 0.92); }
+    &.success { color: rgba(59, 155, 122, 0.92); }
   }
   
   .col-reason, .col-details {

@@ -73,7 +73,7 @@ export default {
 
 <style scoped lang="less">
 .messages-page {
-  padding: 20px 0;
+  padding: 24px 0 56px;
 }
 
 .container {
@@ -90,14 +90,27 @@ export default {
 }
 
 .sub {
-  color: #6b7280;
+  color: var(--text-3);
   font-size: 13px;
 }
 
+.list {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
 .item {
-  padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
   cursor: pointer;
+  transition: background var(--transition);
+}
+
+.item:hover {
+  background: rgba(15, 23, 42, 0.04);
 }
 
 .left {
@@ -118,8 +131,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: rgba(79, 109, 255, 0.12);
+  color: rgba(15, 23, 42, 0.82);
   font-weight: 800;
   font-size: 16px;
 }
@@ -138,17 +151,17 @@ export default {
 
 .name {
   font-weight: 800;
-  color: #111827;
+  color: var(--text);
 }
 
 .time {
-  color: #9ca3af;
+  color: var(--text-3);
   font-size: 12px;
 }
 
 .preview {
   margin-top: 4px;
-  color: #6b7280;
+  color: var(--text-2);
   font-size: 13px;
   overflow: hidden;
   white-space: nowrap;

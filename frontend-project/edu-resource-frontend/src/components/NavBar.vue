@@ -90,8 +90,10 @@ export default {
 
 <style lang="less" scoped>
 .navbar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -103,7 +105,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    height: 68px;
   }
   
   .navbar-brand {
@@ -112,12 +114,13 @@ export default {
       align-items: center;
       font-size: 20px;
       font-weight: bold;
-      color: white;
+      color: rgba(15, 23, 42, 0.92);
       text-decoration: none;
       
       .icon-book {
         margin-right: 10px;
         font-size: 24px;
+        color: #4f6dff;
       }
     }
   }
@@ -128,25 +131,26 @@ export default {
     gap: 20px;
     
     .nav-item {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(15, 23, 42, 0.70);
       text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: all 0.3s;
+      padding: 9px 14px;
+      border-radius: 12px;
+      transition: background 220ms cubic-bezier(0.16, 1, 0.3, 1), color 220ms cubic-bezier(0.16, 1, 0.3, 1), transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
       font-size: 14px;
       
       &:hover, &.router-link-active {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
+        background: rgba(15, 23, 42, 0.06);
+        color: rgba(15, 23, 42, 0.92);
       }
       
       &.btn-register {
-        background: white;
-        color: #667eea;
-        font-weight: 500;
+        background: linear-gradient(135deg, #4f6dff 0%, #7b5cff 100%);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 10px 24px rgba(79, 109, 255, 0.18);
         
         &:hover {
-          background: #f0f0f0;
+          transform: translateY(-1px);
         }
       }
     }
@@ -165,11 +169,12 @@ export default {
           height: 32px;
           border-radius: 50%;
           object-fit: cover;
-          border: 2px solid white;
+          border: 2px solid rgba(15, 23, 42, 0.10);
         }
         
         .icon-chevron-down {
           font-size: 12px;
+          color: rgba(15, 23, 42, 0.54);
         }
       }
       
@@ -177,9 +182,11 @@ export default {
         position: absolute;
         top: 100%;
         right: 0;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-radius: 14px;
+        border: 1px solid rgba(15, 23, 42, 0.10);
+        box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
         min-width: 180px;
         padding: 8px 0;
         display: none;
@@ -194,17 +201,39 @@ export default {
           align-items: center;
           gap: 10px;
           padding: 10px 20px;
-          color: #333;
+          color: rgba(15, 23, 42, 0.86);
           text-decoration: none;
-          transition: background 0.2s;
+          transition: background 220ms cubic-bezier(0.16, 1, 0.3, 1);
           
           &:hover {
-            background: #f5f5f5;
+            background: rgba(15, 23, 42, 0.06);
           }
           
           i {
             font-size: 16px;
-            color: #666;
+            color: rgba(15, 23, 42, 0.54);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    .container {
+      padding: 0 14px;
+      height: 64px;
+    }
+    .navbar-menu {
+      gap: 8px;
+      .nav-item {
+        padding: 8px 10px;
+      }
+      .nav-dropdown {
+        .dropdown-toggle {
+          span {
+            display: none;
           }
         }
       }

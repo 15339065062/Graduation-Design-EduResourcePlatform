@@ -176,18 +176,20 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   padding: 20px;
   z-index: 2000; /* Ensure it covers everything */
 }
 
 .login-container {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  padding: 48px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  padding: 40px 36px;
   width: 100%;
   max-width: 420px;
+  backdrop-filter: blur(14px);
 }
 
 .login-header {
@@ -196,22 +198,23 @@ export default {
   
   .platform-title {
     font-size: 20px;
-    color: #667eea;
-    font-weight: 600;
+    color: rgba(15, 23, 42, 0.78);
+    font-weight: 700;
     margin-bottom: 16px;
-    letter-spacing: 1px;
+    letter-spacing: 0.6px;
   }
   
   h1 {
     font-size: 32px;
     font-weight: 700;
-    color: #333;
+    color: var(--text);
     margin-bottom: 12px;
+    letter-spacing: -0.03em;
   }
   
   p {
     font-size: 16px;
-    color: #666;
+    color: var(--text-2);
   }
 }
 
@@ -222,8 +225,8 @@ export default {
     label {
       display: block;
       font-size: 14px;
-      font-weight: 500;
-      color: #333;
+      font-weight: 600;
+      color: var(--text);
       margin-bottom: 8px;
     }
     
@@ -231,19 +234,21 @@ export default {
     input[type="password"] {
       width: 100%;
       padding: 12px 16px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       font-size: 14px;
-      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.78);
+      transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
       
       &:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: rgba(79, 109, 255, 0.55);
+        box-shadow: var(--focus);
+        background: rgba(255, 255, 255, 0.96);
       }
       
       &::placeholder {
-        color: #999;
+        color: var(--text-3);
       }
     }
     
@@ -262,7 +267,7 @@ export default {
         background: none;
         border: none;
         cursor: pointer;
-        color: #999;
+        color: var(--text-3);
         padding: 4px;
         display: flex;
         align-items: center;
@@ -270,7 +275,7 @@ export default {
         transition: color 0.3s;
         
         &:hover {
-          color: #667eea;
+          color: rgba(15, 23, 42, 0.86);
         }
         
         i {
@@ -293,7 +298,7 @@ export default {
       
       span {
         font-size: 14px;
-        color: #666;
+        color: var(--text-2);
       }
     }
   }
@@ -309,10 +314,10 @@ export default {
   .error-message {
     margin-top: 20px;
     padding: 12px 16px;
-    background: #fee;
-    border: 1px solid #fcc;
-    border-radius: 8px;
-    color: #c33;
+    background: rgba(194, 71, 77, 0.10);
+    border: 1px solid rgba(194, 71, 77, 0.18);
+    border-radius: 14px;
+    color: rgba(15, 23, 42, 0.86);
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -324,21 +329,28 @@ export default {
   text-align: center;
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border);
   
   p {
     font-size: 14px;
-    color: #666;
+    color: var(--text-2);
     
     a {
-      color: #667eea;
+      color: rgba(15, 23, 42, 0.86);
       text-decoration: none;
       font-weight: 600;
       
       &:hover {
-        text-decoration: underline;
+        color: rgba(15, 23, 42, 1);
       }
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 28px 18px;
+    border-radius: 18px;
   }
 }
 </style>

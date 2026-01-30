@@ -194,19 +194,19 @@
                               <span class="reply-author">
                                 {{ reply.nickname || reply.username }}
                                 <template v-if="reply.replyToNickname">
-                                  <span style="margin: 0 4px; color: #999; font-weight: normal;">回复</span>
-                                  <span style="color: #667eea;">@{{ reply.replyToNickname }}</span>
+                                  <span class="reply-to-label">回复</span>
+                                  <span class="reply-to-mention">@{{ reply.replyToNickname }}</span>
                                 </template>
                               </span>
                               <span class="reply-date">{{ formatDate(reply.createTime) }}</span>
                             </div>
                             <p class="reply-text">{{ reply.content }}</p>
-                            <div class="reply-actions" style="margin-top: 4px; display: flex; gap: 12px;">
-                              <button v-if="isLoggedIn" class="btn-action" @click="handleReply(comment, reply)" style="border:none; background:none; color:#667eea; cursor:pointer; font-size:12px; padding:0; display:flex; align-items:center; gap:2px;">
-                                <i class="icon-reply" style="font-size:12px;"></i> 回复
+                            <div class="reply-actions reply-actions-inline">
+                              <button v-if="isLoggedIn" class="btn-action reply-action-btn" @click="handleReply(comment, reply)">
+                                <i class="icon-reply"></i> 回复
                               </button>
-                              <button v-if="isLoggedIn && currentUser && currentUser.id === reply.userId" class="btn-action delete btn-xs" @click="handleDeleteComment(reply.id)" style="border:none; background:none; color:#ff4d4f; cursor:pointer; font-size:12px; padding:0; display:flex; align-items:center; gap:2px;">
-                                <i class="icon-trash" style="font-size:12px;"></i> 删除
+                              <button v-if="isLoggedIn && currentUser && currentUser.id === reply.userId" class="btn-action delete btn-xs reply-action-btn" @click="handleDeleteComment(reply.id)">
+                                <i class="icon-trash"></i> 删除
                               </button>
                             </div>
                           </div>
@@ -806,9 +806,9 @@ export default {
     align-items: center;
     justify-content: center;
     padding: 40px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    color: #999;
+    background: rgba(15, 23, 42, 0.03);
+    border-radius: 18px;
+    color: var(--text-3);
     
     i {
       font-size: 48px;
@@ -819,15 +819,15 @@ export default {
 
 .resource-detail-page {
   min-height: 100vh;
-  background: #f5f7fa;
-  padding: 40px 20px;
+  background: transparent;
+  padding: 28px 0 56px;
 }
 
 .loading-state,
 .error-state {
   text-align: center;
   padding: 80px 20px;
-  color: #999;
+  color: var(--text-3);
   
   i {
     font-size: 64px;
@@ -842,25 +842,27 @@ export default {
 }
 
 .resource-detail {
-  max-width: 1200px;
+  max-width: 1120px;
   margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 28px);
   
   .resource-header {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 20px;
+    border: 1px solid var(--border);
     padding: 32px;
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 32px;
     align-items: start;
     margin-bottom: 24px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
     
     .resource-icon-large {
       width: 100px;
       height: 100px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
+      border-radius: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -875,13 +877,14 @@ export default {
       h1 {
         font-size: 28px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
         margin-bottom: 12px;
+        letter-spacing: -0.03em;
       }
       
       .resource-description {
         font-size: 16px;
-        color: #666;
+        color: var(--text-2);
         margin-bottom: 16px;
         line-height: 1.6;
       }
@@ -894,8 +897,8 @@ export default {
         font-size: 14px;
         
         .category-tag {
-          background: #e3f2fd;
-          color: #2196f3;
+          background: rgba(79, 109, 255, 0.12);
+          color: rgba(15, 23, 42, 0.82);
           padding: 6px 16px;
           border-radius: 16px;
           font-weight: 500;
@@ -904,7 +907,7 @@ export default {
         .file-type,
         .file-size,
         .upload-date {
-          color: #999;
+          color: var(--text-3);
           display: flex;
           align-items: center;
           gap: 4px;
@@ -1001,7 +1004,7 @@ export default {
             
             i {
               font-size: 24px;
-              color: #667eea;
+              color: rgba(15, 23, 42, 0.70);
             }
             
             div {
@@ -1012,12 +1015,12 @@ export default {
               .stat-value {
                 font-size: 20px;
                 font-weight: 600;
-                color: #333;
+                color: var(--text);
               }
               
               .stat-label {
                 font-size: 12px;
-                color: #999;
+                color: var(--text-3);
               }
             }
           }
@@ -1025,15 +1028,16 @@ export default {
       }
       
       .comments-section {
-        background: white;
-        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.82);
+        border-radius: 20px;
+        border: 1px solid var(--border);
         padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: var(--shadow-md);
         
         h3 {
           font-size: 18px;
           font-weight: 600;
-          color: #333;
+          color: var(--text);
           margin-bottom: 20px;
         }
         
@@ -1043,8 +1047,8 @@ export default {
           textarea {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
             font-size: 14px;
             font-family: inherit;
             resize: vertical;
@@ -1052,25 +1056,26 @@ export default {
             
             &:focus {
               outline: none;
-              border-color: #667eea;
-              box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+              border-color: rgba(79, 109, 255, 0.55);
+              box-shadow: var(--focus);
+              background: rgba(255, 255, 255, 0.96);
             }
           }
         }
         
         .login-prompt {
           padding: 16px;
-          background: #f5f7fa;
-          border-radius: 8px;
+          background: rgba(15, 23, 42, 0.03);
+          border-radius: 14px;
           text-align: center;
           margin-bottom: 24px;
           
           p {
             font-size: 14px;
-            color: #666;
+            color: var(--text-2);
             
             a {
-              color: #667eea;
+              color: rgba(15, 23, 42, 0.92);
               text-decoration: none;
               font-weight: 600;
             }
@@ -1177,19 +1182,19 @@ export default {
                   .btn-sm {
                     padding: 6px 12px;
                     font-size: 12px;
-                    border-radius: 4px;
+                    border-radius: 12px;
                     cursor: pointer;
                   }
                   
                   .btn-primary {
-                    background: #667eea;
+                    background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
                     color: white;
                     border: none;
                   }
                   
                   .btn-default {
-                    background: #f0f0f0;
-                    color: #666;
+                    background: rgba(15, 23, 42, 0.06);
+                    color: rgba(15, 23, 42, 0.78);
                     border: none;
                   }
                 }
@@ -1202,7 +1207,7 @@ export default {
                 .btn-action {
                   background: none;
                   border: none;
-                  color: #667eea;
+                  color: rgba(15, 23, 42, 0.78);
                   font-size: 13px;
                   cursor: pointer;
                   display: flex;
@@ -1211,27 +1216,27 @@ export default {
                   padding: 0;
                   
                   &:hover {
-                    text-decoration: underline;
+                    color: rgba(15, 23, 42, 0.92);
                   }
                   
                   &.delete {
-                    color: #ff4d4f;
+                    color: rgba(194, 71, 77, 0.92);
                   }
                 }
               }
 
               .comment-replies {
                 margin-top: 16px;
-                background: #f9f9f9;
+                background: rgba(15, 23, 42, 0.03);
                 padding: 16px;
-                border-radius: 8px;
+                border-radius: 16px;
                 
                 .reply-item {
                   display: flex;
                   gap: 12px;
                   margin-bottom: 16px;
                   padding-bottom: 16px;
-                  border-bottom: 1px solid #eee;
+                  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
                   
                   &:last-child {
                     margin-bottom: 0;
@@ -1259,19 +1264,45 @@ export default {
                       .reply-author {
                         font-size: 13px;
                         font-weight: 600;
-                        color: #333;
+                        color: var(--text);
                       }
                       
                       .reply-date {
                         font-size: 12px;
-                        color: #999;
+                        color: var(--text-3);
                       }
                     }
                     
                     .reply-text {
                       font-size: 13px;
-                      color: #666;
+                      color: var(--text-2);
                       line-height: 1.5;
+                    }
+
+                    .reply-to-label {
+                      margin: 0 4px;
+                      color: var(--text-3);
+                      font-weight: 400;
+                    }
+
+                    .reply-to-mention {
+                      color: rgba(15, 23, 42, 0.86);
+                    }
+
+                    .reply-actions-inline {
+                      margin-top: 4px;
+                      display: flex;
+                      gap: 12px;
+                    }
+
+                    .reply-action-btn {
+                      font-size: 12px;
+                      gap: 2px;
+                      padding: 0;
+                    }
+
+                    .reply-action-btn i {
+                      font-size: 12px;
                     }
                   }
                 }
@@ -1287,31 +1318,34 @@ export default {
           gap: 16px;
           margin-top: 24px;
           padding-top: 24px;
-          border-top: 1px solid #f0f0f0;
+          border-top: 1px solid rgba(15, 23, 42, 0.10);
           
           .page-btn {
             padding: 8px 16px;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(15, 23, 42, 0.10);
+            border-radius: 12px;
             cursor: pointer;
-            color: #666;
-            transition: all 0.2s;
+            color: rgba(15, 23, 42, 0.72);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition), color var(--transition);
             
             &:hover:not(:disabled) {
-              border-color: #667eea;
-              color: #667eea;
+              border-color: rgba(15, 23, 42, 0.16);
+              color: rgba(15, 23, 42, 0.92);
+              background: rgba(255, 255, 255, 0.96);
+              transform: translateY(-1px);
+              box-shadow: var(--shadow-sm);
             }
             
             &:disabled {
-              background: #f5f5f5;
-              color: #ccc;
+              background: rgba(15, 23, 42, 0.04);
+              color: rgba(15, 23, 42, 0.28);
               cursor: not-allowed;
             }
           }
           
           .page-info {
-            color: #666;
+            color: rgba(15, 23, 42, 0.72);
             font-size: 14px;
           }
         }
@@ -1355,16 +1389,17 @@ export default {
             padding: 12px;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background var(--transition), transform var(--transition);
             
             &:hover {
-              background: #f5f7fa;
+              background: rgba(15, 23, 42, 0.04);
+              transform: translateY(-1px);
             }
             
             .related-icon {
               width: 40px;
               height: 40px;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
               border-radius: 8px;
               display: flex;
               align-items: center;

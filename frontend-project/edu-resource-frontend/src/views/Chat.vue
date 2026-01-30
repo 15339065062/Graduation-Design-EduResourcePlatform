@@ -450,7 +450,7 @@ export default {
 
 <style scoped lang="less">
 .chat-page {
-  padding: 10px 0 16px;
+  padding: 18px 0 56px;
 }
 
 .container {
@@ -479,9 +479,10 @@ export default {
 }
 
 .chat-body {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
 }
 
@@ -489,17 +490,23 @@ export default {
   height: 62vh;
   overflow: auto;
   padding: 14px 12px;
-  background: #f9fafb;
+  background: rgba(15, 23, 42, 0.02);
 }
 
 .load-more {
   width: 100%;
-  border: 1px solid #e5e7eb;
-  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(255, 255, 255, 0.82);
   padding: 10px 12px;
   border-radius: 12px;
   cursor: pointer;
   margin-bottom: 10px;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.load-more:hover {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(15, 23, 42, 0.16);
 }
 
 .msg-row {
@@ -525,8 +532,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: rgba(79, 109, 255, 0.12);
+  color: rgba(15, 23, 42, 0.82);
   font-weight: 800;
   font-size: 13px;
 }
@@ -537,21 +544,23 @@ export default {
 
 .time {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-3);
   margin: 0 6px 4px;
 }
 
 .bubble {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.10);
   border-radius: 14px;
   padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
 }
 
 .msg-row.mine .bubble {
-  background: #667eea;
-  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
+  border-color: rgba(79, 109, 255, 0.30);
   color: #fff;
+  box-shadow: 0 10px 24px rgba(79, 109, 255, 0.18);
 }
 
 .text {
@@ -577,8 +586,8 @@ export default {
   gap: 10px;
   align-items: center;
   padding: 10px;
-  border-top: 1px solid #e5e7eb;
-  background: #fff;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .tools {
@@ -590,26 +599,41 @@ export default {
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  background: #f3f4f6;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.05);
   cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.tool:hover {
+  background: rgba(15, 23, 42, 0.07);
+  border-color: rgba(15, 23, 42, 0.16);
+  transform: translateY(-1px);
 }
 
 .input {
   flex: 1;
-  border: 1px solid #e5e7eb;
+  border: 1px solid rgba(15, 23, 42, 0.10);
   border-radius: 12px;
   padding: 8px 10px;
   resize: none;
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .send {
   padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid transparent;
-  background: #667eea;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
   color: #fff;
   cursor: pointer;
+  box-shadow: 0 10px 24px rgba(79, 109, 255, 0.18);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.send:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(79, 109, 255, 0.22);
 }
 
 .send:disabled {
@@ -628,9 +652,9 @@ export default {
 }
 
 .record-btn.recording {
-  background: #111827;
+  background: rgba(15, 23, 42, 0.92);
   color: #fff;
-  border-color: #111827;
+  border-color: rgba(15, 23, 42, 0.92);
 }
 
 .record-btn.recording.cancel {

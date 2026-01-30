@@ -311,8 +311,8 @@ export default {
 <style scoped lang="less">
 .resources-page {
   min-height: 100vh;
-  background: #f5f7fa;
-  padding: 40px 20px;
+  background: transparent;
+  padding: 28px 0 56px;
 }
 
 .page-header {
@@ -320,25 +320,22 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   
   h1 {
     font-size: 32px;
     font-weight: 700;
-    color: #333;
+    color: var(--text);
+    letter-spacing: -0.02em;
   }
 }
 
 .filters-section {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
   margin-bottom: 24px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
@@ -352,15 +349,17 @@ export default {
     input {
       width: 100%;
       padding: 12px 16px 12px 44px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       font-size: 14px;
-      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.78);
+      transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
       
       &:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: rgba(79, 109, 255, 0.55);
+        box-shadow: var(--focus);
+        background: rgba(255, 255, 255, 0.96);
       }
     }
     
@@ -369,7 +368,7 @@ export default {
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: #999;
+      color: var(--text-3);
       font-size: 18px;
     }
   }
@@ -381,17 +380,18 @@ export default {
     
     select {
       padding: 12px 16px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       font-size: 14px;
-      background: white;
+      background: rgba(255, 255, 255, 0.78);
       cursor: pointer;
-      transition: all 0.3s;
+      transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
       
       &:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: rgba(79, 109, 255, 0.55);
+        box-shadow: var(--focus);
+        background: rgba(255, 255, 255, 0.96);
       }
     }
   }
@@ -401,9 +401,7 @@ export default {
 .empty-state {
   text-align: center;
   padding: 80px 20px;
-  color: #999;
-  max-width: 1200px;
-  margin: 0 auto;
+  color: var(--text-3);
   
   i {
     font-size: 64px;
@@ -419,31 +417,31 @@ export default {
 .resources-list {
   display: grid;
   gap: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
   
   .resource-item {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 18px;
     padding: 24px;
     display: grid;
     grid-template-columns: auto 1fr auto auto;
     gap: 24px;
     align-items: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    box-shadow: var(--shadow-md);
     cursor: pointer;
-    transition: all 0.3s;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     
     &:hover {
-      transform: translateX(4px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(15, 23, 42, 0.14);
     }
     
     .resource-icon {
       width: 64px;
       height: 64px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(79, 109, 255, 0.95) 0%, rgba(123, 92, 255, 0.95) 100%);
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -461,7 +459,7 @@ export default {
       h3 {
         font-size: 18px;
         font-weight: 600;
-        color: #333;
+        color: var(--text);
         margin-bottom: 8px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -470,7 +468,7 @@ export default {
       
       p {
         font-size: 14px;
-        color: #666;
+        color: var(--text-2);
         margin-bottom: 12px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -484,8 +482,8 @@ export default {
         font-size: 12px;
         
         .category-tag {
-          background: #e3f2fd;
-          color: #2196f3;
+          background: rgba(79, 109, 255, 0.12);
+          color: rgba(15, 23, 42, 0.82);
           padding: 4px 12px;
           border-radius: 12px;
           font-weight: 500;
@@ -493,7 +491,7 @@ export default {
         
         .file-size,
         .file-type {
-          color: #999;
+          color: var(--text-3);
         }
       }
     }
@@ -507,10 +505,10 @@ export default {
         align-items: center;
         gap: 4px;
         font-size: 13px;
-        color: #666;
+        color: var(--text-2);
         
         i {
-          color: #999;
+          color: var(--text-3);
         }
       }
     }
@@ -536,12 +534,12 @@ export default {
         .uploader-name {
           font-size: 14px;
           font-weight: 500;
-          color: #333;
+          color: var(--text);
         }
         
         .upload-date {
           font-size: 12px;
-          color: #999;
+          color: var(--text-3);
         }
       }
     }
@@ -550,9 +548,6 @@ export default {
 
 .pagination-section {
   margin-top: 32px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 @media (max-width: 768px) {

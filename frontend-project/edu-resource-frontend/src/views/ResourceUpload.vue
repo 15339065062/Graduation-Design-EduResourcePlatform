@@ -410,22 +410,24 @@ export default {
 <style scoped lang="less">
 .upload-page {
   min-height: 100vh;
-  background: #f5f7fa;
-  padding: 40px 20px;
+  background: transparent;
+  padding: 28px 0 56px;
 }
 
 .upload-container {
   max-width: 800px;
   margin: 0 auto;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
+  backdrop-filter: blur(14px);
 }
 
 .upload-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
+  padding: 36px 28px;
   text-align: center;
   color: white;
   
@@ -433,6 +435,7 @@ export default {
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 12px;
+    letter-spacing: -0.03em;
   }
   
   p {
@@ -442,7 +445,7 @@ export default {
 }
 
 .upload-form {
-  padding: 40px;
+  padding: 28px;
   
   .form-section {
     margin-bottom: 40px;
@@ -454,10 +457,10 @@ export default {
     h2 {
       font-size: 20px;
       font-weight: 600;
-      color: #333;
+      color: var(--text);
       margin-bottom: 24px;
       padding-bottom: 12px;
-      border-bottom: 2px solid #f0f0f0;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.10);
     }
     
     .form-group {
@@ -470,8 +473,8 @@ export default {
       label {
         display: block;
         font-size: 14px;
-        font-weight: 500;
-        color: #333;
+        font-weight: 600;
+        color: var(--text);
         margin-bottom: 8px;
       }
       
@@ -480,20 +483,22 @@ export default {
       textarea {
         width: 100%;
         padding: 12px 16px;
-        border: 2px solid #e0e0e0;
-        border-radius: 8px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
         font-size: 14px;
-        transition: all 0.3s;
+        transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
         font-family: inherit;
+        background: rgba(255, 255, 255, 0.78);
         
         &:focus {
           outline: none;
-          border-color: #667eea;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+          border-color: rgba(79, 109, 255, 0.55);
+          box-shadow: var(--focus);
+          background: rgba(255, 255, 255, 0.96);
         }
         
         &::placeholder {
-          color: #999;
+          color: var(--text-3);
         }
       }
       
@@ -516,29 +521,30 @@ export default {
         
         span {
           font-size: 14px;
-          color: #666;
+          color: var(--text-2);
         }
       }
     }
   }
   
   .upload-zone {
-    border: 2px dashed #e0e0e0;
-    border-radius: 12px;
+    border: 1px dashed rgba(15, 23, 42, 0.22);
+    border-radius: 18px;
     padding: 48px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s;
-    background: #fafafa;
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    background: rgba(255, 255, 255, 0.70);
     
     &:hover {
-      border-color: #667eea;
-      background: #f5f7fa;
+      border-color: rgba(79, 109, 255, 0.45);
+      background: rgba(255, 255, 255, 0.86);
+      transform: translateY(-1px);
     }
     
     &.drag-over {
-      border-color: #667eea;
-      background: #e3f2fd;
+      border-color: rgba(79, 109, 255, 0.55);
+      background: rgba(79, 109, 255, 0.08);
     }
     
     &.has-file {

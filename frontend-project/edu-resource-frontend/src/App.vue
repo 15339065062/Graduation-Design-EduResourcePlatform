@@ -38,7 +38,7 @@ export default {
 
 .main-content {
   flex: 1;
-  padding-top: 64px;
+  padding-top: 68px;
 }
 
 * {

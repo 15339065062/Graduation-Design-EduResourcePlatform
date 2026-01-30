@@ -23,14 +23,20 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  background: transparent;
+  padding: 24px;
 }
 
 .not-found-container {
   text-align: center;
-  color: white;
+  color: var(--text);
   max-width: 500px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-lg);
+  padding: 28px 22px;
+  backdrop-filter: blur(14px);
 }
 
 .error-code {
@@ -38,7 +44,11 @@ export default {
   font-weight: 700;
   line-height: 1;
   margin-bottom: 20px;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.06em;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .not-found-container h1 {
@@ -50,31 +60,7 @@ export default {
 .not-found-container p {
   font-size: 16px;
   margin: 0 0 32px 0;
-  opacity: 0.9;
+  color: var(--text-2);
   line-height: 1.6;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-
-.btn-primary {
-  background: white;
-  color: #667eea;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 </style>

@@ -235,76 +235,59 @@ export default {
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 100px 20px;
-  color: white;
+  padding: 96px 0 56px;
+  color: var(--text);
   
   .hero-content {
     text-align: center;
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
+    background: rgba(255, 255, 255, 0.76);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    border-radius: 24px;
+    padding: 52px clamp(18px, 4vw, 56px);
+    backdrop-filter: blur(14px);
     
     h1 {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      line-height: 1.2;
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 800;
+      margin-bottom: 14px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
     }
     
     p {
-      font-size: 20px;
-      opacity: 0.9;
-      margin-bottom: 40px;
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--text-2);
+      margin-bottom: 28px;
     }
     
     .hero-actions {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
       
       .btn-lg {
-        padding: 16px 32px;
-        font-size: 16px;
-        font-weight: 600;
-      }
-      
-      .btn-primary {
-        background: white;
-        color: #667eea;
-        
-        &:hover {
-          background: #f5f7fa;
-          transform: translateY(-2px);
-        }
-      }
-      
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        backdrop-filter: blur(10px);
-        
-        &:hover {
-          background: rgba(255, 255, 255, 0.3);
-          transform: translateY(-2px);
-        }
+        padding: 12px 18px;
+        font-size: 15px;
       }
     }
   }
 }
 
 .stats-section {
-  padding: 0 20px 60px;
-  background: transparent;
+  padding: 0 0 56px;
   
   .stats-box {
-    background: white;
-    border: 2px solid #764ba2;
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
-    max-width: 1100px;
-    margin: -60px auto 0;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: var(--shadow-md);
+    max-width: 1120px;
+    margin: -34px auto 0;
     position: relative;
     z-index: 10;
   }
@@ -312,27 +295,30 @@ export default {
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 14px;
     
     .stat-card {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 16px;
-      background: #f8f9fa;
-      border-radius: 12px;
-      transition: transform 0.3s;
+      padding: 14px 14px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 16px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
       
       &:hover {
-        transform: translateY(-2px);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(15, 23, 42, 0.14);
       }
       
       .stat-icon {
         flex-shrink: 0;
         width: 50px;
         height: 50px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(79, 109, 255, 0.95) 0%, rgba(123, 92, 255, 0.95) 100%);
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -350,7 +336,7 @@ export default {
         h3 {
           font-size: 24px;
           font-weight: 700;
-          color: #333;
+          color: var(--text);
           margin-bottom: 2px;
           white-space: nowrap;
           overflow: hidden;
@@ -359,7 +345,7 @@ export default {
         
         p {
           font-size: 14px;
-          color: #666;
+          color: var(--text-2);
           margin: 0;
           white-space: nowrap;
           overflow: hidden;
@@ -371,8 +357,8 @@ export default {
 }
 
 .featured-section {
-  padding: 60px 20px;
-  background: #f5f7fa;
+  padding: 56px 0;
+  background: transparent;
   
   .section-header {
     display: flex;
@@ -383,11 +369,11 @@ export default {
     h2 {
       font-size: 28px;
       font-weight: 700;
-      color: #333;
+      color: var(--text);
     }
     
     .btn-link {
-      color: #667eea;
+      color: rgba(15, 23, 42, 0.72);
       text-decoration: none;
       font-weight: 600;
       display: flex;
@@ -395,7 +381,7 @@ export default {
       gap: 4px;
       
       &:hover {
-        text-decoration: underline;
+        color: rgba(15, 23, 42, 0.92);
       }
     }
   }
@@ -420,26 +406,28 @@ export default {
   .resources-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    gap: 16px;
     
     .resource-card {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      box-shadow: var(--shadow-md);
       cursor: pointer;
-      transition: all 0.3s;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
       
       &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(15, 23, 42, 0.14);
       }
       
       .resource-icon {
         width: 56px;
         height: 56px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(79, 109, 255, 0.95) 0%, rgba(123, 92, 255, 0.95) 100%);
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -455,7 +443,7 @@ export default {
         h4 {
           font-size: 18px;
           font-weight: 600;
-          color: #333;
+          color: var(--text);
           margin-bottom: 8px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -464,7 +452,7 @@ export default {
         
         p {
           font-size: 14px;
-          color: #666;
+          color: var(--text-2);
           margin-bottom: 16px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -476,11 +464,11 @@ export default {
           justify-content: space-between;
           align-items: center;
           font-size: 13px;
-          color: #999;
+          color: var(--text-3);
           
           .category-tag {
-            background: #e3f2fd;
-            color: #2196f3;
+            background: rgba(79, 109, 255, 0.12);
+            color: rgba(15, 23, 42, 0.82);
             padding: 4px 12px;
             border-radius: 12px;
             font-weight: 500;
@@ -507,7 +495,7 @@ export default {
           align-items: center;
           gap: 8px;
           font-size: 13px;
-          color: #666;
+          color: var(--text-2);
           
           .uploader-avatar {
             width: 24px;
@@ -519,7 +507,7 @@ export default {
         
         .upload-date {
           font-size: 12px;
-          color: #999;
+          color: var(--text-3);
         }
       }
     }
@@ -528,16 +516,10 @@ export default {
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 60px 20px;
+    padding: 60px 0 40px;
     
     .hero-content {
-      h1 {
-        font-size: 32px;
-      }
-      
-      p {
-        font-size: 16px;
-      }
+      padding: 36px 18px;
     }
   }
   
@@ -545,8 +527,8 @@ export default {
     padding-bottom: 40px;
     
     .stats-box {
-      padding: 20px;
-      margin-top: -40px;
+      padding: 16px;
+      margin-top: -22px;
     }
 
     .stats-grid {

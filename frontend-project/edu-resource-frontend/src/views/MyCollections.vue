@@ -246,8 +246,8 @@ export default {
 <style scoped lang="less">
 .my-collections-page {
   min-height: 100vh;
-  background: #f5f7fa;
-  padding: 40px 0;
+  background: transparent;
+  padding: 28px 0 56px;
   
   .container {
     max-width: 1200px;
@@ -264,7 +264,7 @@ export default {
     h2 {
       font-size: 24px;
       font-weight: 600;
-      color: #333;
+      color: var(--text);
     }
   }
   
@@ -274,12 +274,12 @@ export default {
     
     i {
       font-size: 48px;
-      color: #cbd5e0;
+      color: rgba(15, 23, 42, 0.18);
       margin-bottom: 16px;
     }
     
     p {
-      color: #718096;
+      color: var(--text-3);
     }
   }
   
@@ -289,22 +289,24 @@ export default {
     gap: 24px;
     
     .resource-card {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s;
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 18px;
+      padding: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.10);
+      box-shadow: var(--shadow-md);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
       
       &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(15, 23, 42, 0.14);
       }
       
       .resource-icon {
         width: 48px;
         height: 48px;
-        background: #f0f4ff;
-        border-radius: 12px;
+        background: rgba(79, 109, 255, 0.10);
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -318,7 +320,7 @@ export default {
         
         i {
           font-size: 24px;
-          color: #667eea;
+          color: rgba(15, 23, 42, 0.82);
         }
       }
       
@@ -328,7 +330,7 @@ export default {
         h4 {
           font-size: 16px;
           font-weight: 600;
-          color: #2d3748;
+          color: var(--text);
           margin-bottom: 8px;
           white-space: nowrap;
           overflow: hidden;
@@ -337,13 +339,13 @@ export default {
           transition: color 0.2s;
           
           &:hover {
-            color: #667eea;
+            color: rgba(15, 23, 42, 0.92);
           }
         }
         
         p {
           font-size: 14px;
-          color: #718096;
+          color: var(--text-2);
           line-height: 1.5;
           height: 42px;
           overflow: hidden;
@@ -353,7 +355,7 @@ export default {
           cursor: pointer;
           
           &:hover {
-            color: #4a5568;
+            color: rgba(15, 23, 42, 0.78);
           }
         }
         
@@ -362,7 +364,7 @@ export default {
           gap: 16px;
           margin-top: 12px;
           font-size: 12px;
-          color: #a0aec0;
+          color: var(--text-3);
           
           span {
             display: flex;
@@ -377,7 +379,7 @@ export default {
         justify-content: flex-end;
         gap: 8px;
         padding-top: 16px;
-        border-top: 1px solid #edf2f7;
+        border-top: 1px solid rgba(15, 23, 42, 0.08);
         
         .btn-sm {
           width: 32px;
@@ -392,9 +394,9 @@ export default {
           transition: all 0.2s;
           
           &.btn-view {
-            background: #e2e8f0;
-            color: #4a5568;
-            &:hover { background: #cbd5e0; }
+            background: rgba(15, 23, 42, 0.06);
+            color: rgba(15, 23, 42, 0.72);
+            &:hover { background: rgba(15, 23, 42, 0.08); }
           }
           
           &.btn-uncollect {
@@ -412,18 +414,19 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #667eea;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
   color: white;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 12px;
   text-decoration: none;
   border: none;
   font-size: 14px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: transform var(--transition), box-shadow var(--transition);
   
   &:hover {
-    background: #5a67d8;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(79, 109, 255, 0.22);
   }
   .pagination {
     display: flex;
@@ -439,8 +442,8 @@ export default {
       height: 40px;
       border-radius: 8px;
       border: 1px solid #e2e8f0;
-      background: white;
-      color: #4a5568;
+      background: rgba(255, 255, 255, 0.82);
+      color: rgba(15, 23, 42, 0.72);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -448,15 +451,15 @@ export default {
       transition: all 0.2s;
       
       &:hover:not(:disabled) {
-        border-color: #667eea;
-        color: #667eea;
-        background: #f0f4ff;
+        border-color: rgba(15, 23, 42, 0.18);
+        color: rgba(15, 23, 42, 0.92);
+        background: rgba(15, 23, 42, 0.04);
       }
       
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
-        background: #f7fafc;
+        background: rgba(15, 23, 42, 0.04);
       }
       
       i {
@@ -467,7 +470,7 @@ export default {
     .page-info {
       font-size: 14px;
       font-weight: 500;
-      color: #4a5568;
+      color: rgba(15, 23, 42, 0.72);
     }
   }
 }

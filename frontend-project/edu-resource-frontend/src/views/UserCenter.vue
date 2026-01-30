@@ -369,26 +369,28 @@ export default {
 <style scoped lang="less">
 .user-center-page {
   min-height: 100vh;
-  background: #f5f7fa;
-  padding: 40px 20px;
+  background: transparent;
+  padding: 28px 0 56px;
 }
 
 .user-center-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 32px;
-  max-width: 1200px;
+  max-width: 1120px;
   margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 28px);
 }
 
 .user-sidebar {
   .user-profile-card {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 18px;
+    border: 1px solid var(--border);
     padding: 32px;
     text-align: center;
     margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
     
     .avatar-section {
       position: relative;
@@ -400,7 +402,7 @@ export default {
         height: 100px;
         border-radius: 50%;
         object-fit: cover;
-        border: 3px solid #667eea;
+        border: 3px solid rgba(79, 109, 255, 0.28);
       }
       
       .btn-avatar-upload {
@@ -410,16 +412,19 @@ export default {
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: #667eea;
+        background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
         color: white;
-        border: 2px solid white;
+        border: 2px solid rgba(255, 255, 255, 0.92);
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 10px 24px rgba(79, 109, 255, 0.18);
+        transition: transform var(--transition), box-shadow var(--transition);
         
         &:hover {
-          background: #5568d3;
+          transform: translateY(-1px);
+          box-shadow: 0 14px 30px rgba(79, 109, 255, 0.22);
         }
       }
     }
@@ -427,41 +432,42 @@ export default {
     .user-name {
       font-size: 20px;
       font-weight: 600;
-      color: #333;
+      color: var(--text);
       margin-bottom: 8px;
     }
     
     .user-role {
       font-size: 14px;
-      color: #999;
+      color: var(--text-3);
     }
   }
   
   .user-nav {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 18px;
+    border: 1px solid var(--border);
     padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
     
     .nav-item {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 12px 16px;
-      border-radius: 8px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: all 0.3s;
-      color: #666;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+      color: var(--text-2);
       text-decoration: none;
       margin-bottom: 4px;
       
       &:hover {
-        background: #f5f7fa;
-        color: #667eea;
+        background: rgba(15, 23, 42, 0.06);
+        color: rgba(15, 23, 42, 0.92);
       }
       
       &.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
         color: white;
       }
     }
@@ -470,18 +476,19 @@ export default {
 
 .user-content {
   .content-section {
-    background: white;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    border-radius: 18px;
+    border: 1px solid var(--border);
     padding: 32px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-md);
     
     h2 {
       font-size: 24px;
       font-weight: 600;
-      color: #333;
+      color: var(--text);
       margin-bottom: 32px;
       padding-bottom: 16px;
-      border-bottom: 2px solid #f0f0f0;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.10);
     }
     
     .role-request-form {

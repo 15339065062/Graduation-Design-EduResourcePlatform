@@ -134,9 +134,10 @@ export default {
 }
 
 .profile-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
   padding: 18px;
 }
 
@@ -158,8 +159,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: rgba(79, 109, 255, 0.12);
+  color: rgba(15, 23, 42, 0.82);
   font-weight: 800;
   font-size: 22px;
 }
@@ -172,13 +173,13 @@ export default {
 .name {
   font-size: 18px;
   font-weight: 800;
-  color: #111827;
+  color: var(--text);
 }
 
 .sub {
   margin-top: 4px;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-3);
 }
 
 .stats {
@@ -186,7 +187,7 @@ export default {
   display: flex;
   gap: 14px;
   font-size: 13px;
-  color: #111827;
+  color: var(--text-2);
 }
 
 .actions {
@@ -200,16 +201,29 @@ export default {
   border: 1px solid transparent;
   cursor: pointer;
   font-size: 14px;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
 }
 
 .btn-light {
-  background: #f3f4f6;
-  border-color: #e5e7eb;
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.10);
 }
 
 .btn-primary {
-  background: #667eea;
+  background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
   color: #fff;
+  box-shadow: 0 10px 24px rgba(79, 109, 255, 0.18);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 </style>
 

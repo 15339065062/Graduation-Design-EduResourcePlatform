@@ -18,7 +18,7 @@
               <div class="sub">@{{ u.username }}</div>
             </div>
           </router-link>
-          <button class="btn" type="button" @click="goChat(u.id)">私信</button>
+          <button class="btn btn-secondary btn-sm" type="button" @click="goChat(u.id)">私信</button>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default {
 
 <style scoped lang="less">
 .friends-page {
-  padding: 20px 0;
+  padding: 24px 0 56px;
 }
 
 .container {
@@ -81,16 +81,29 @@ export default {
 }
 
 .sub {
-  color: #6b7280;
+  color: var(--text-3);
   font-size: 13px;
+}
+
+.list {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
 
 .item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  transition: background var(--transition);
+}
+
+.item:hover {
+  background: rgba(15, 23, 42, 0.04);
 }
 
 .left {
@@ -112,8 +125,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eef2ff;
-  color: #4f46e5;
+  background: rgba(79, 109, 255, 0.12);
+  color: rgba(15, 23, 42, 0.82);
   font-weight: 800;
   font-size: 16px;
 }
@@ -123,16 +136,8 @@ export default {
 }
 
 .sub {
-  color: #6b7280;
+  color: var(--text-3);
   font-size: 12px;
-}
-
-.btn {
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  padding: 8px 12px;
-  border-radius: 12px;
-  cursor: pointer;
 }
 </style>
 
