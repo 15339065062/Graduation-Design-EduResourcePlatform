@@ -1,0 +1,33 @@
+# 编译产物（Maven/Gradle）
+target/
+build/
+*.jar
+*.war
+*.ear
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# IDE 配置（IDEA 为主，兼容 VS Code）
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.vscode/
+*.code-workspace
+
+# 日志与临时文件
+*.log
+*.tmp
+*.cache
+*.class
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 数据库文件（若有本地测试库）
+*.sql
+*.sqlite
