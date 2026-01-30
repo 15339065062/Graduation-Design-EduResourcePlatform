@@ -55,7 +55,7 @@
           </label>
         </div>
         
-        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+        <button type="submit" class="btn btn-primary btn-cta btn-block" :disabled="loading">
           <i v-if="loading" class="icon-loading"></i>
           {{ loading ? '登录中...' : '登录' }}
         </button>

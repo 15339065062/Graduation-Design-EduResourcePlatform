@@ -3,7 +3,7 @@
     <div class="container">
       <div class="page-header">
         <h1>资源</h1>
-        <router-link v-if="canUpload" to="/upload" class="btn btn-primary">
+        <router-link v-if="canUpload" to="/upload" class="btn btn-primary btn-cta">
           <i class="icon-upload"></i> 上传资源
         </router-link>
       </div>
@@ -420,21 +420,23 @@ export default {
   
   .resource-item {
     background: rgba(255, 255, 255, 0.82);
-    border-radius: 18px;
-    padding: 24px;
+    border-radius: 20px;
+    padding: 18px;
     display: grid;
     grid-template-columns: auto 1fr auto auto;
-    gap: 24px;
+    gap: 18px;
     align-items: center;
     border: 1px solid rgba(15, 23, 42, 0.10);
     box-shadow: var(--shadow-md);
     cursor: pointer;
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    backdrop-filter: blur(14px);
     
     &:hover {
       transform: translateY(-1px);
       box-shadow: var(--shadow-lg);
       border-color: rgba(15, 23, 42, 0.14);
+      background: rgba(255, 255, 255, 0.90);
     }
     
     .resource-icon {
@@ -458,12 +460,13 @@ export default {
       
       h3 {
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 750;
         color: var(--text);
         margin-bottom: 8px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        letter-spacing: -0.015em;
       }
       
       p {
@@ -471,8 +474,10 @@ export default {
         color: var(--text-2);
         margin-bottom: 12px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-height: 1.5;
       }
       
       .resource-meta {
@@ -506,9 +511,14 @@ export default {
         gap: 4px;
         font-size: 13px;
         color: var(--text-2);
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        background: rgba(255, 255, 255, 0.70);
+        transition: background var(--transition), border-color var(--transition), transform var(--transition);
         
         i {
-          color: var(--text-3);
+          color: rgba(15, 23, 42, 0.55);
         }
       }
     }
@@ -524,6 +534,7 @@ export default {
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
+        border: 1px solid rgba(15, 23, 42, 0.10);
       }
       
       .uploader-info {

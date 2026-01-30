@@ -85,7 +85,7 @@
           </label>
         </div>
         
-        <button type="submit" class="btn btn-primary btn-block" :disabled="loading || !isFormValid">
+        <button type="submit" class="btn btn-primary btn-cta btn-block" :disabled="loading || !isFormValid">
           <i v-if="loading" class="icon-loading"></i>
           {{ loading ? '创建账号中...' : '创建账号' }}
         </button>

@@ -4,7 +4,7 @@
       <div class="error-code">404</div>
       <h1>Page Not Found</h1>
       <p>The page you are looking for does not exist or has been moved.</p>
-      <router-link to="/" class="btn btn-primary">
+      <router-link to="/" class="btn btn-primary btn-cta">
         <i class="icon-home"></i> Back to Home
       </router-link>
     </div>

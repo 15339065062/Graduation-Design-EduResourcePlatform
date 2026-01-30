@@ -120,7 +120,7 @@
             <button type="button" class="btn btn-secondary" @click="handleCancel">
               取消
             </button>
-            <button type="submit" class="btn btn-primary" :disabled="loading || !isFormValid">
+            <button type="submit" class="btn btn-primary btn-cta" :disabled="loading || !isFormValid">
               <i v-if="loading" class="icon-loading"></i>
               {{ loading ? '上传中...' : '上传资源' }}
             </button>

@@ -9,7 +9,7 @@
       <div v-else-if="!resource" class="error-state">
         <i class="icon-error"></i>
         <p>资源未找到</p>
-        <router-link to="/resources" class="btn btn-primary">返回资源列表</router-link>
+        <router-link to="/resources" class="btn btn-primary btn-cta">返回资源列表</router-link>
       </div>
       
       <div v-else class="resource-detail">
@@ -33,10 +33,10 @@
           </div>
           
           <div class="resource-actions">
-            <button class="btn btn-primary btn-lg" @click="handleDownload">
+            <button class="btn btn-primary btn-lg btn-cta" @click="handleDownload">
               <i class="icon-download"></i> 下载
             </button>
-            <button class="btn btn-secondary" @click="handleCollect" :disabled="collecting">
+            <button class="btn" :class="isCollected ? 'btn-success' : 'btn-secondary'" @click="handleCollect" :disabled="collecting">
               <i :class="isCollected ? 'icon-star-filled' : 'icon-star'"></i>
               {{ isCollected ? '已收藏' : '收藏' }}
             </button>
@@ -130,7 +130,7 @@
                     placeholder="写下你的评论..."
                     rows="3"
                   ></textarea>
-                  <button class="btn btn-primary" @click="handleSubmitComment" :disabled="!newComment.trim() || submitting">
+                  <button class="btn btn-primary btn-cta" @click="handleSubmitComment" :disabled="!newComment.trim() || submitting">
                     {{ submitting ? '发布中...' : '发布评论' }}
                   </button>
                 </div>
@@ -744,11 +744,13 @@ export default {
 
 <style scoped lang="less">
 .preview-section {
-  background: white;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 20px;
+  border: 1px solid var(--border);
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   margin-bottom: 24px;
+  backdrop-filter: blur(14px);
   
   .preview-media {
     width: 100%;
@@ -940,16 +942,19 @@ export default {
       
       .uploader-card,
       .stats-card {
-        background: white;
-        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.82);
+        border-radius: 20px;
+        border: 1px solid var(--border);
         padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: var(--shadow-md);
+        backdrop-filter: blur(14px);
         
         h3 {
           font-size: 18px;
-          font-weight: 600;
-          color: #333;
+          font-weight: 700;
+          color: var(--text);
           margin-bottom: 16px;
+          letter-spacing: -0.02em;
         }
       }
       
@@ -970,6 +975,7 @@ export default {
             height: 56px;
             border-radius: 50%;
             object-fit: cover;
+            border: 1px solid rgba(15, 23, 42, 0.10);
           }
           
           .uploader-details {
@@ -979,13 +985,14 @@ export default {
             
             .uploader-name {
               font-size: 16px;
-              font-weight: 600;
-              color: #333;
+              font-weight: 750;
+              color: var(--text);
+              letter-spacing: -0.015em;
             }
             
             .uploader-role {
               font-size: 14px;
-              color: #999;
+              color: var(--text-3);
             }
           }
         }
@@ -1001,10 +1008,14 @@ export default {
             display: flex;
             align-items: center;
             gap: 12px;
+            padding: 12px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.70);
             
             i {
               font-size: 24px;
-              color: rgba(15, 23, 42, 0.70);
+              color: rgba(15, 23, 42, 0.72);
             }
             
             div {
@@ -1013,9 +1024,14 @@ export default {
               gap: 2px;
               
               .stat-value {
-                font-size: 20px;
-                font-weight: 600;
-                color: var(--text);
+                font-size: 24px;
+                font-weight: 850;
+                letter-spacing: -0.03em;
+                line-height: 1.05;
+                background: linear-gradient(135deg, rgba(79, 109, 255, 0.96) 0%, rgba(123, 92, 255, 0.96) 100%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
               }
               
               .stat-label {
@@ -1085,7 +1101,7 @@ export default {
         .empty-comments {
           text-align: center;
           padding: 40px 20px;
-          color: #999;
+          color: var(--text-3);
           
           i {
             font-size: 48px;
@@ -1101,18 +1117,15 @@ export default {
         .comments-list {
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 12px;
           
           .comment-item {
             display: flex;
             gap: 16px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #f0f0f0;
-            
-            &:last-child {
-              border-bottom: none;
-              padding-bottom: 0;
-            }
+            padding: 14px 14px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.70);
             
             .comment-avatar {
               width: 40px;
@@ -1120,6 +1133,7 @@ export default {
               border-radius: 50%;
               object-fit: cover;
               flex-shrink: 0;
+              border: 1px solid rgba(15, 23, 42, 0.10);
             }
             
             .comment-content {
@@ -1133,19 +1147,20 @@ export default {
                 
                 .comment-author {
                   font-size: 14px;
-                  font-weight: 600;
-                  color: #333;
+                  font-weight: 750;
+                  color: var(--text);
+                  letter-spacing: -0.01em;
                 }
                 
                 .comment-date {
                   font-size: 12px;
-                  color: #999;
+                  color: var(--text-3);
                 }
               }
               
               .comment-text {
                 font-size: 14px;
-                color: #666;
+                color: var(--text-2);
                 line-height: 1.6;
                 margin-bottom: 12px;
                 white-space: pre-wrap;
@@ -1160,10 +1175,19 @@ export default {
                   
                   textarea {
                     width: 100%;
-                    padding: 8px;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
+                    padding: 10px 12px;
+                    border: 1px solid rgba(15, 23, 42, 0.10);
+                    border-radius: 12px;
                     resize: vertical;
+                    background: rgba(255, 255, 255, 0.78);
+                    transition: box-shadow var(--transition), border-color var(--transition), background var(--transition);
+                    
+                    &:focus {
+                      outline: none;
+                      border-color: rgba(79, 109, 255, 0.55);
+                      box-shadow: var(--focus);
+                      background: rgba(255, 255, 255, 0.96);
+                    }
                   }
                   
                   .char-count {
@@ -1171,7 +1195,7 @@ export default {
                     bottom: 4px;
                     right: 8px;
                     font-size: 11px;
-                    color: #999;
+                    color: var(--text-3);
                   }
                 }
 
@@ -1354,24 +1378,27 @@ export default {
     
     .sidebar {
       .related-resources {
-        background: white;
-        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.82);
+        border-radius: 20px;
+        border: 1px solid var(--border);
         padding: 24px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: var(--shadow-md);
         position: sticky;
         top: 20px;
+        backdrop-filter: blur(14px);
         
         h3 {
           font-size: 18px;
-          font-weight: 600;
-          color: #333;
+          font-weight: 700;
+          color: var(--text);
           margin-bottom: 16px;
+          letter-spacing: -0.02em;
         }
         
         .empty-related {
           text-align: center;
           padding: 32px 20px;
-          color: #999;
+          color: var(--text-3);
           
           p {
             font-size: 14px;
@@ -1418,8 +1445,8 @@ export default {
               
               h4 {
                 font-size: 14px;
-                font-weight: 500;
-                color: #333;
+                font-weight: 650;
+                color: var(--text);
                 margin-bottom: 4px;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -1428,7 +1455,7 @@ export default {
               
               p {
                 font-size: 12px;
-                color: #999;
+                color: var(--text-3);
               }
             }
           }

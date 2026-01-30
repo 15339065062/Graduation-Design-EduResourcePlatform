@@ -128,6 +128,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  backdrop-filter: blur(14px);
 }
 
 .resource-card:hover {
@@ -155,11 +156,12 @@ export default {
 .resource-name {
   margin: 0 0 8px 0;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 750;
   color: var(--text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  letter-spacing: -0.015em;
 }
 
 .resource-description {
@@ -209,10 +211,16 @@ export default {
   gap: 4px;
   font-size: 13px;
   color: var(--text-2);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.70);
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
 }
 
 .stat-item i {
   font-size: 16px;
+  color: rgba(15, 23, 42, 0.55);
 }
 
 .resource-footer {
@@ -234,6 +242,7 @@ export default {
   height: 24px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid rgba(15, 23, 42, 0.10);
 }
 
 .uploader-info span {

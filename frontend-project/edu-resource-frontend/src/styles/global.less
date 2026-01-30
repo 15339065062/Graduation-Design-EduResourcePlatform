@@ -85,6 +85,8 @@ a {
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition), color var(--transition);
   text-decoration: none;
   user-select: none;
+  position: relative;
+  z-index: 0;
   
   &.btn-primary {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
@@ -102,6 +104,17 @@ a {
       transform: none;
       box-shadow: none;
     }
+  }
+
+  &.btn-cta.btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(79, 109, 255, 0.55) 0%, rgba(123, 92, 255, 0.55) 100%);
+    filter: blur(14px);
+    opacity: 0.55;
+    z-index: -1;
   }
   
   &.btn-secondary {

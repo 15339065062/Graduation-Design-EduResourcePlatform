@@ -6,7 +6,7 @@
           <h1>教育资源共享平台</h1>
           <p>发现、分享和协作教育资源</p>
           <div class="hero-actions">
-            <router-link to="/resources" class="btn btn-primary btn-lg">
+            <router-link to="/resources" class="btn btn-primary btn-lg btn-cta">
               <i class="icon-search"></i> 浏览资源
             </router-link>
             <router-link v-if="canUpload" to="/upload" class="btn btn-secondary btn-lg">
