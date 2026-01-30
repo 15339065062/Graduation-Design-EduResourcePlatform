@@ -43,5 +43,9 @@ export const userApi = {
 
   submitRoleRequest(data) {
     return request.post('/user/role-request', data)
+  },
+
+  getPublicProfile(userId) {
+    return request.get(`/user/${userId}`)
   }
 }

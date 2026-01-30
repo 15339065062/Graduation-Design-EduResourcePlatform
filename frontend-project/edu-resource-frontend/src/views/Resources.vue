@@ -15,20 +15,40 @@
             type="text"
             placeholder="搜索资源..."
             @input="handleSearch"
+            @keyup.enter="handleSearchImmediate"
           />
           <i class="icon-search"></i>
         </div>
         
         <div class="filter-options">
           <select v-model="filters.category" @change="handleFilterChange">
-            <option value="">全部分类</option>
-            <option v-for="cat in categories" :key="cat.id" :value="cat.name">
-              {{ cat.name }}
+            <option value="">全部学科</option>
+            <option v-for="cat in categories" :key="cat" :value="cat">
+              {{ cat }}
             </option>
+          </select>
+
+          <select v-model="filters.fileType" @change="handleFilterChange">
+            <option value="">全部类型</option>
+            <option value="pdf">PDF</option>
+            <option value="doc">DOC</option>
+            <option value="docx">DOCX</option>
+            <option value="ppt">PPT</option>
+            <option value="pptx">PPTX</option>
+            <option value="xls">XLS</option>
+            <option value="xlsx">XLSX</option>
+            <option value="jpg">JPG</option>
+            <option value="png">PNG</option>
+            <option value="gif">GIF</option>
+            <option value="mp4">MP4</option>
+            <option value="mov">MOV</option>
+            <option value="mp3">MP3</option>
+            <option value="wav">WAV</option>
           </select>
           
           <select v-model="filters.sortBy" @change="handleFilterChange">
             <option value="latest">最新</option>
+            <option value="recommend">推荐</option>
             <option value="popular">最受欢迎</option>
             <option value="downloads">最多下载</option>
           </select>
@@ -127,6 +147,7 @@ export default {
     const filters = reactive({
       keyword: '',
       category: '',
+      fileType: '',
       sortBy: 'latest'
     })
     
@@ -135,14 +156,8 @@ export default {
     const totalItems = ref(0)
     const totalPages = computed(() => Math.ceil(totalItems.value / pageSize.value))
     
-    const categories = ref([
-      { id: 1, name: '数学' },
-      { id: 2, name: '科学' },
-      { id: 3, name: '语言' },
-      { id: 4, name: '历史' },
-      { id: 5, name: '技术' },
-      { id: 6, name: '艺术' }
-    ])
+    const categories = ref([])
+    let searchTimer = null
     
     const canUpload = computed(() => store.getters.canUpload)
     
@@ -156,6 +171,7 @@ export default {
           pageSize: pageSize.value,
           keyword: filters.keyword,
           category: filters.category,
+          fileType: filters.fileType,
           sortBy: filters.sortBy
         })
         
@@ -172,11 +188,23 @@ export default {
     
     const handleSearch = () => {
       currentPage.value = 1
+      if (searchTimer) clearTimeout(searchTimer)
+      searchTimer = setTimeout(() => {
+        updateQuery()
+        loadResources()
+      }, 300)
+    }
+
+    const handleSearchImmediate = () => {
+      currentPage.value = 1
+      if (searchTimer) clearTimeout(searchTimer)
+      updateQuery()
       loadResources()
     }
     
     const handleFilterChange = () => {
       currentPage.value = 1
+      updateQuery()
       loadResources()
     }
     
@@ -188,6 +216,15 @@ export default {
     
     const handleViewResource = (id) => {
       router.push(`/resources/${id}`)
+    }
+
+    const updateQuery = () => {
+      const q = {}
+      if (filters.keyword) q.keyword = filters.keyword
+      if (filters.category) q.category = filters.category
+      if (filters.fileType) q.fileType = filters.fileType
+      if (filters.sortBy && filters.sortBy !== 'latest') q.sortBy = filters.sortBy
+      router.replace({ query: q })
     }
     
     const getResourceIcon = (fileType) => {
@@ -228,15 +265,24 @@ export default {
       })
     }
     
+    const applyQuery = (q) => {
+      filters.keyword = q.keyword || ''
+      filters.category = q.category || ''
+      filters.fileType = q.fileType || ''
+      filters.sortBy = q.sortBy || 'latest'
+    }
+
     watch(() => route.query, (newQuery) => {
-      if (newQuery.category) {
-        filters.category = newQuery.category
-        loadResources()
-      }
+      applyQuery(newQuery || {})
+      loadResources()
     }, { immediate: true })
     
     onMounted(() => {
-      loadResources()
+      resourceApi.getCategories().then((res) => {
+        if (res && res.success) {
+          categories.value = res.data || []
+        }
+      }).catch(() => {})
     })
     
     return {
@@ -250,6 +296,7 @@ export default {
       canUpload,
       defaultAvatar,
       handleSearch,
+      handleSearchImmediate,
       handleFilterChange,
       handlePageChange,
       handleViewResource,

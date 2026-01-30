@@ -159,6 +159,7 @@ public class ResourceServlet extends HttpServlet {
     private void getResources(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String keyword = req.getParameter("keyword");
         String category = req.getParameter("category");
+        String fileType = req.getParameter("fileType");
         String sortBy = req.getParameter("sortBy");
         int page = Integer.parseInt(req.getParameter("page") != null ? req.getParameter("page") : "1");
         int pageSize = Integer.parseInt(req.getParameter("pageSize") != null ? req.getParameter("pageSize") : "10");
@@ -172,7 +173,7 @@ public class ResourceServlet extends HttpServlet {
         try {
             conn = DBUtil.getConnection();
             
-            StringBuilder countSql = new StringBuilder("SELECT COUNT(*) FROM resource WHERE is_public = 1");
+            StringBuilder countSql = new StringBuilder("SELECT COUNT(*) FROM resource r WHERE r.is_public = 1");
             StringBuilder querySql = new StringBuilder(
                 "SELECT r.*, u.username, u.nickname, " +
                 "(SELECT COUNT(*) FROM comment WHERE resource_id = r.id) as comment_count " +
@@ -188,6 +189,10 @@ public class ResourceServlet extends HttpServlet {
             if (category != null && !category.isEmpty()) {
                 conditions.add("r.category = ?");
                 params.add(category);
+            }
+            if (fileType != null && !fileType.isEmpty()) {
+                conditions.add("LOWER(r.file_type) = ?");
+                params.add(fileType.toLowerCase());
             }
             
             for (String condition : conditions) {

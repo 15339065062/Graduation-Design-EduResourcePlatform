@@ -66,6 +66,8 @@ public class UserServlet extends HttpServlet {
         
         if ("/current".equals(pathInfo) || "/profile".equals(pathInfo)) {
             getCurrentUser(req, resp);
+        } else if (pathInfo != null && pathInfo.matches("/\\d+")) {
+            getPublicProfile(req, resp);
         } else {
             JsonUtil.sendJsonResponse(resp, ApiResponse.error("Invalid endpoint"));
         }
@@ -157,6 +159,87 @@ public class UserServlet extends HttpServlet {
             JsonUtil.sendJsonResponse(resp, ApiResponse.error("数据库错误"));
         } finally {
             DBUtil.close(conn, ps, rs);
+        }
+    }
+
+    private void getPublicProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String pathInfo = req.getPathInfo();
+        int targetId = Integer.parseInt(pathInfo.substring(1));
+
+        Integer currentUserId = null;
+        String token = req.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            if (JwtUtil.validateToken(token)) {
+                currentUserId = JwtUtil.getUserIdFromToken(token);
+            }
+        }
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtil.getConnection();
+            String sql = "SELECT id, username, nickname, avatar, role, create_time FROM user WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, targetId);
+            rs = ps.executeQuery();
+            if (!rs.next()) {
+                JsonUtil.sendJsonResponse(resp, ApiResponse.error("User not found"));
+                return;
+            }
+
+            Map<String, Object> user = new java.util.HashMap<>();
+            user.put("id", rs.getInt("id"));
+            user.put("username", rs.getString("username"));
+            user.put("nickname", rs.getString("nickname"));
+            user.put("avatar", rs.getString("avatar"));
+            user.put("role", rs.getString("role"));
+            user.put("createdAt", rs.getTimestamp("create_time") == null ? null : rs.getTimestamp("create_time").getTime());
+
+            int followerCount = count(conn, "SELECT COUNT(*) FROM user_follow WHERE followee_id = ?", targetId);
+            int followingCount = count(conn, "SELECT COUNT(*) FROM user_follow WHERE follower_id = ?", targetId);
+
+            boolean isFollowing = false;
+            boolean isFollowedBy = false;
+            if (currentUserId != null) {
+                isFollowing = exists(conn, "SELECT 1 FROM user_follow WHERE follower_id = ? AND followee_id = ? LIMIT 1", currentUserId, targetId);
+                isFollowedBy = exists(conn, "SELECT 1 FROM user_follow WHERE follower_id = ? AND followee_id = ? LIMIT 1", targetId, currentUserId);
+            }
+
+            Map<String, Object> data = new java.util.HashMap<>();
+            data.put("user", user);
+            data.put("followerCount", followerCount);
+            data.put("followingCount", followingCount);
+            data.put("isFollowing", isFollowing);
+            data.put("isFollowedBy", isFollowedBy);
+            data.put("isFriend", isFollowing && isFollowedBy);
+            JsonUtil.sendJsonResponse(resp, ApiResponse.success(data));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JsonUtil.sendJsonResponse(resp, ApiResponse.error("Database error"));
+        } finally {
+            DBUtil.close(conn, ps, rs);
+        }
+    }
+
+    private int count(Connection conn, String sql, int id) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        }
+    }
+
+    private boolean exists(Connection conn, String sql, int a, int b) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, a);
+            ps.setInt(2, b);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
         }
     }
 

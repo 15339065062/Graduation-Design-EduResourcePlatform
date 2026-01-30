@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 public class JsonUtil {
     private static final Gson gson = new GsonBuilder()
@@ -25,7 +27,7 @@ public class JsonUtil {
     public static <T> T parseJsonRequest(HttpServletRequest request, Class<T> classOfT) throws IOException {
         StringBuilder json = new StringBuilder();
         String line;
-        BufferedReader reader = request.getReader();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
         while ((line = reader.readLine()) != null) {
             json.append(line);
         }
@@ -35,7 +37,7 @@ public class JsonUtil {
     public static java.util.Map<String, Object> parseJsonMap(HttpServletRequest request) throws IOException {
         StringBuilder json = new StringBuilder();
         String line;
-        BufferedReader reader = request.getReader();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
         while ((line = reader.readLine()) != null) {
             json.append(line);
         }

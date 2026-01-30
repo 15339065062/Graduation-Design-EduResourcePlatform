@@ -1,10 +1,19 @@
 <template>
   <div class="comment-item" :class="{ nested: depth > 0 }">
-    <img v-if="comment.user?.avatar" :src="comment.user.avatar" alt="" class="avatar" />
-    <div v-else class="avatar avatar-ph" aria-hidden="true">{{ initials }}</div>
+    <router-link v-if="comment.userId" class="user-link" :to="`/user/${comment.userId}`">
+      <img v-if="comment.user?.avatar" :src="comment.user.avatar" alt="" class="avatar" />
+      <div v-else class="avatar avatar-ph" aria-hidden="true">{{ initials }}</div>
+    </router-link>
+    <template v-else>
+      <img v-if="comment.user?.avatar" :src="comment.user.avatar" alt="" class="avatar" />
+      <div v-else class="avatar avatar-ph" aria-hidden="true">{{ initials }}</div>
+    </template>
     <div class="body">
       <div class="header">
-        <span class="name">{{ comment.user?.nickname || comment.user?.username || '用户' }}</span>
+        <router-link v-if="comment.userId" class="name user-link" :to="`/user/${comment.userId}`">
+          {{ comment.user?.nickname || comment.user?.username || '用户' }}
+        </router-link>
+        <span v-else class="name">{{ comment.user?.nickname || comment.user?.username || '用户' }}</span>
         <span class="time">{{ formatTime(comment.createTime) }}</span>
       </div>
       <div class="content" v-html="renderContent(comment)"></div>
@@ -184,6 +193,11 @@ export default {
   font-size: 14px;
   font-weight: 600;
   color: #111827;
+}
+
+.user-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .time {

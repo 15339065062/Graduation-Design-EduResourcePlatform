@@ -27,6 +27,30 @@ const routes = [
     meta: { requiresAuth: true, title: 'User Center' }
   },
   {
+    path: '/user/:id',
+    name: 'UserProfile',
+    component: () => import('../views/UserProfile.vue'),
+    meta: { title: 'User Profile' }
+  },
+  {
+    path: '/friends',
+    name: 'Friends',
+    component: () => import('../views/Friends.vue'),
+    meta: { requiresAuth: true, title: 'Friends' }
+  },
+  {
+    path: '/messages',
+    name: 'Messages',
+    component: () => import('../views/Messages.vue'),
+    meta: { requiresAuth: true, title: 'Messages' }
+  },
+  {
+    path: '/chat/:userId',
+    name: 'Chat',
+    component: () => import('../views/Chat.vue'),
+    meta: { requiresAuth: true, title: 'Chat' }
+  },
+  {
     path: '/resources',
     name: 'Resources',
     component: () => import('../views/Resources.vue'),

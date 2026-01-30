@@ -79,10 +79,15 @@
             <div class="uploader-card">
               <h3>上传者</h3>
               <div class="uploader-info">
-              <img :src="resource.uploader?.avatar || defaultAvatar" alt="Avatar" class="uploader-avatar" />
+              <router-link v-if="resource.uploader?.id" :to="`/user/${resource.uploader.id}`" class="uploader-link">
+                <img :src="resource.uploader?.avatar || defaultAvatar" alt="Avatar" class="uploader-avatar" />
+              </router-link>
               <div class="uploader-details">
-                <span class="uploader-name">{{ resource.uploader?.nickname || resource.uploader?.username }}</span>
-              <span class="uploader-role">{{ roleLabel === 'User' ? '用户' : roleLabel === 'Teacher' ? '老师' : roleLabel === 'Student' ? '学生' : '管理员' }}</span>
+                <router-link v-if="resource.uploader?.id" :to="`/user/${resource.uploader.id}`" class="uploader-name uploader-link">
+                  {{ resource.uploader?.nickname || resource.uploader?.username }}
+                </router-link>
+                <span v-else class="uploader-name">{{ resource.uploader?.nickname || resource.uploader?.username }}</span>
+                <span class="uploader-role">{{ roleLabel === 'User' ? '用户' : roleLabel === 'Teacher' ? '老师' : roleLabel === 'Student' ? '学生' : '管理员' }}</span>
               </div>
             </div>
             </div>
@@ -950,6 +955,12 @@ export default {
           display: flex;
           align-items: center;
           gap: 16px;
+
+          .uploader-link {
+            text-decoration: none;
+            color: inherit;
+            display: inline-flex;
+          }
           
           .uploader-avatar {
             width: 56px;

@@ -13,6 +13,8 @@
         <router-link to="/resources" class="nav-item">资源</router-link>
         
         <template v-if="isLoggedIn">
+          <router-link to="/messages" class="nav-item">私信</router-link>
+          <router-link to="/friends" class="nav-item">好友</router-link>
           <router-link v-if="isAdmin" to="/admin" class="nav-item">用户管理</router-link>
           <router-link v-if="canUpload" to="/upload" class="nav-item">上传</router-link>
           <router-link to="/my-resources" class="nav-item">我的资源</router-link>
