@@ -293,20 +293,42 @@ public class CommentV2Servlet extends HttpServlet {
         Integer userId = getUserIdFromRequest(req, resp);
         if (userId == null) return;
 
-        Integer resourceId = parseIntParam(req.getParameter("resourceId"));
-        Integer parentId = parseIntParam(req.getParameter("parentId"));
-        Integer replyToUserId = parseIntParam(req.getParameter("replyToUserId"));
-        String content = req.getParameter("content");
-        if (content == null) content = "";
+        Integer resourceId;
+        Integer parentId;
+        Integer replyToUserId;
+        String content;
+        List<Part> imageParts = new ArrayList<>();
+
+        String ct = req.getContentType();
+        boolean isMultipart = ct != null && ct.toLowerCase().startsWith("multipart/");
+        if (isMultipart) {
+            resourceId = parseIntParam(req.getParameter("resourceId"));
+            parentId = parseIntParam(req.getParameter("parentId"));
+            replyToUserId = parseIntParam(req.getParameter("replyToUserId"));
+            content = req.getParameter("content");
+            if (content == null) content = "";
+            for (Part part : req.getParts()) {
+                if ("images".equals(part.getName()) && part.getSize() > 0) {
+                    imageParts.add(part);
+                }
+            }
+        } else {
+            Map<String, Object> body;
+            try {
+                body = JsonUtil.parseJsonMap(req);
+            } catch (Exception e) {
+                JsonUtil.sendJsonResponse(resp, ApiResponse.error("Invalid request format"));
+                return;
+            }
+            resourceId = parseIntObject(body.get("resourceId"));
+            parentId = parseIntObject(body.get("parentId"));
+            replyToUserId = parseIntObject(body.get("replyToUserId"));
+            Object c = body.get("content");
+            content = c == null ? "" : String.valueOf(c);
+        }
+
         content = SensitiveWordUtil.filter(content);
         content = HtmlSanitizer.sanitizePlainText(content.trim());
-
-        List<Part> imageParts = new ArrayList<>();
-        for (Part part : req.getParts()) {
-            if ("images".equals(part.getName()) && part.getSize() > 0) {
-                imageParts.add(part);
-            }
-        }
         if (imageParts.size() > 3) {
             JsonUtil.sendJsonResponse(resp, ApiResponse.error("Too many images"));
             return;
@@ -767,6 +789,14 @@ public class CommentV2Servlet extends HttpServlet {
         } catch (NumberFormatException e) {
             return null;
         }
+    }
+
+    private Integer parseIntObject(Object v) {
+        if (v == null) return null;
+        if (v instanceof Number) return ((Number) v).intValue();
+        String s = String.valueOf(v);
+        if ("null".equalsIgnoreCase(s)) return null;
+        return parseIntParam(s);
     }
 
     private void setCorsHeaders(HttpServletResponse resp) {

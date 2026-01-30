@@ -656,7 +656,10 @@ export default {
         gif: 'icon-file-image',
         mp4: 'icon-file-video',
         avi: 'icon-file-video',
-        mov: 'icon-file-video'
+        mov: 'icon-file-video',
+        mp3: 'icon-file-video',
+        wav: 'icon-file-video',
+        ogg: 'icon-file-video'
       }
       return icons[fileType?.toLowerCase()] || 'icon-file'
     }

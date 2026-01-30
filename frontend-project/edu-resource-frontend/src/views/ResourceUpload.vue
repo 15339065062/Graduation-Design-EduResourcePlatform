@@ -59,7 +59,7 @@
                 ref="fileInput"
                 type="file"
                 multiple
-                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov"
+                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov,.mp3,.wav"
                 @change="handleFileChange"
                 style="display: none"
               />
@@ -68,7 +68,7 @@
                 <i class="icon-cloud-upload"></i>
                 <h3>将文件拖放到此处</h3>
                 <p>或点击浏览文件</p>
-                <span class="file-types">支持格式：PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, PNG, GIF, MP4, AVI, MOV</span>
+                <span class="file-types">支持格式：PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, JPG, PNG, GIF, MP4, AVI, MOV, MP3, WAV</span>
               </div>
               
               <div v-else class="file-preview-list">
@@ -231,10 +231,37 @@ export default {
         'image/gif',
         'video/mp4',
         'video/avi',
-        'video/quicktime'
+        'video/quicktime',
+        'audio/mpeg',
+        'audio/mp3',
+        'audio/wav',
+        'audio/ogg'
+      ]
+
+      const nameParts = (file.name || '').split('.')
+      const ext = nameParts.length > 1 ? nameParts[nameParts.length - 1].toLowerCase() : ''
+      const allowedExtensions = [
+        'pdf',
+        'doc',
+        'docx',
+        'ppt',
+        'pptx',
+        'xls',
+        'xlsx',
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'mp4',
+        'avi',
+        'mov',
+        'mp3',
+        'wav'
       ]
       
-      if (!allowedTypes.includes(file.type)) {
+      const isAllowedByMime = file.type && allowedTypes.includes(file.type)
+      const isAllowedByExt = ext && allowedExtensions.includes(ext)
+      if (!isAllowedByMime && !isAllowedByExt) {
         error.value = `文件类型不支持: ${file.name}。请上传有效的文件。`
         return
       }
@@ -337,7 +364,11 @@ export default {
         'image/gif': 'icon-file-image',
         'video/mp4': 'icon-file-video',
         'video/avi': 'icon-file-video',
-        'video/quicktime': 'icon-file-video'
+        'video/quicktime': 'icon-file-video',
+        'audio/mpeg': 'icon-file-video',
+        'audio/mp3': 'icon-file-video',
+        'audio/wav': 'icon-file-video',
+        'audio/ogg': 'icon-file-video'
       }
       return icons[mimeType] || 'icon-file'
     }

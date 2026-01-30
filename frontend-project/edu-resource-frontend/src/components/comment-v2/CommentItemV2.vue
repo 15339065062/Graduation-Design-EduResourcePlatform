@@ -1,6 +1,7 @@
 <template>
   <div class="comment-item" :class="{ nested: depth > 0 }">
-    <img :src="comment.user?.avatar || defaultAvatar" alt="" class="avatar" />
+    <img v-if="comment.user?.avatar" :src="comment.user.avatar" alt="" class="avatar" />
+    <div v-else class="avatar avatar-ph" aria-hidden="true">{{ initials }}</div>
     <div class="body">
       <div class="header">
         <span class="name">{{ comment.user?.nickname || comment.user?.username || '用户' }}</span>
@@ -92,7 +93,10 @@ export default {
   },
   emits: ['reply', 'delete', 'loadReplies'],
   setup(props) {
-    const defaultAvatar = '/uploads/avatars/default.png'
+    const initials = computed(() => {
+      const s = props.comment.user?.nickname || props.comment.user?.username || '用户'
+      return s.slice(0, 1)
+    })
 
     const replyText = computed(() => t('reply'))
     const expandText = computed(() => t('expandReplies'))
@@ -124,7 +128,7 @@ export default {
     }
 
     return {
-      defaultAvatar,
+      initials,
       replyText,
       expandText,
       canDelete,
@@ -153,6 +157,16 @@ export default {
   border-radius: 50%;
   object-fit: cover;
   flex: 0 0 auto;
+}
+
+.avatar-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .body {

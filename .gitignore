@@ -1,33 +1,38 @@
-# 编译产物（Maven/Gradle）
+# ==================== 后端（Java/Maven）====================
 target/
-build/
-*.jar
-*.war
-*.ear
-.gradle/
-gradle/
-gradlew
-gradlew.bat
-
-# IDE 配置（IDEA 为主，兼容 VS Code）
 .idea/
 *.iml
 *.iws
 *.ipr
 out/
+*.log
+logs/
+*.tmp
+*.cache
+*.sql
+*.sqlite
+
+# ==================== 前端（Vue）====================
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.development.local
+*.d.ts
+*.js.map
+*.css.map
 .vscode/
 *.code-workspace
 
-# 日志与临时文件
-*.log
-*.tmp
-*.cache
-*.class
+# ==================== 项目专属（必须添加）====================
+# 忽略上传的视频/图片/文档（核心！）
+storage/uploads/
+# 忽略临时目录
+tmp/
+# 忽略数据库配置（若有密码）
+backend-project/edu-resource-backend/src/main/resources/database.properties
 
-# 系统文件
-.DS_Store
+# ==================== 系统文件 ====================
 Thumbs.db
-
-# 数据库文件（若有本地测试库）
-*.sql
-*.sqlite
+.DS_Store

@@ -1,7 +1,8 @@
 <template>
   <div class="comment-composer">
     <div class="composer-row">
-      <img :src="avatarUrl" alt="" class="avatar" />
+      <img v-if="avatarUrl" :src="avatarUrl" alt="" class="avatar" />
+      <div v-else class="avatar avatar-ph" aria-hidden="true">{{ initials }}</div>
       <div class="input-area">
         <textarea
           v-model="text"
@@ -87,7 +88,11 @@ export default {
     watch(text, (v) => emit('update:modelValue', v))
 
     const currentUser = computed(() => store.state.user)
-    const avatarUrl = computed(() => currentUser.value?.avatar || '/uploads/avatars/default.png')
+    const avatarUrl = computed(() => currentUser.value?.avatar || '')
+    const initials = computed(() => {
+      const s = currentUser.value?.nickname || currentUser.value?.username || '用户'
+      return s.slice(0, 1)
+    })
 
     const canSubmit = computed(() => {
       return (text.value && text.value.trim().length > 0) || images.value.length > 0
@@ -141,6 +146,7 @@ export default {
       text,
       images,
       avatarUrl,
+      initials,
       canSubmit,
       submitText,
       cancelText,
@@ -171,6 +177,16 @@ export default {
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.avatar-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .input-area {
